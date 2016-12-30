@@ -467,7 +467,7 @@ function insertNotificationTransactions(transactionData, userTableConfig, dbConf
                                                 });
                                             }
 
-                                            function processNotification(d, userTableConfig, dbConfig, callback) {
+                                            function processNotificationFunction(d, userTableConfig, dbConfig, callback) {
                                                 debug("email", d["email"])
                                                 processInapp(d, userTableConfig, dbConfig, function(inappResponse) {
                                                     processPush(d, userTableConfig, dbConfig, function(pushResponse) {
@@ -498,7 +498,7 @@ function insertNotificationTransactions(transactionData, userTableConfig, dbConf
                                                     });
                                                     return;
                                                 }
-                                                processNotification(processedUserData[index], userTableConfig, dbConfig, function() {
+                                                processNotificationFunction(processedUserData[index], userTableConfig, dbConfig, function() {
                                                     debug('processedUserData.length 0: ', processedUserData.length);
                                                     debug('index 0: ', index);
                                                     processUser(index + 1, userTableConfig, dbConfig);
@@ -767,6 +767,7 @@ function getUserDetails(userArray, userTableConfig, dbConfig, cb) {
             table: userTableConfig.userTableName,
             alias: userTableConfig.userTableAlias,
             joinwith: [{
+                type: 'LEFT',
                 table: userTableConfig.userMappingTableName,
                 alias: userTableConfig.userMappingTableAlias,
                 joincondition: {
